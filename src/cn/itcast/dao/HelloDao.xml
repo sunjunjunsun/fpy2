@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.dao.HelloDao">
+
+<select id="findBytesterName"  resultType="java.lang.String" parameterType="java.util.HashMap">
+select boardType from `tt_borders`
+		<where>
+			<if test="testerName!=null and testerName!=''">
+				AND testerName = #{testerName}
+			</if>
+			<if test="dStart!=null and dStart!=''">
+               <![CDATA[ and DATE_FORMAT(testTime,'%Y-%m-%d %H:%T:%s')>=DATE_FORMAT(#{dStart},'%Y-%m-%d %H:%T:%s')]]>
+			</if>
+			<if test="dEnd!=null and dEnd!=''">
+               <![CDATA[ and DATE_FORMAT(testTime,'%Y-%m-%d %H:%T:%s')<=DATE_FORMAT(#{dEnd},'%Y-%m-%d %H:%T:%s')]]>
+			</if>
+		</where>
+</select>
+</mapper>

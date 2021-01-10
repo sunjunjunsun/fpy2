@@ -1,0 +1,17 @@
+
+
+
+#timedy{
+float:right;
+width: 360px;
+	height: 40px;
+	background: rgb(0, 139, 139);
+	border-radius: 20px;
+	text-align: center;
+	line-height: 40px;
+	color: rgb(255, 128, 128);
+	font-weight: bold;
+	font-size: 26px;
+}
+
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.dao.BoardDataDao">
+
+   <select id="findByTesterNameAndTime" resultMap="BaseResultMap" >
+      
+SELECT b.boardType,b.testerName,b.testTime,s.serial_number,location,pin,err_code,repair_status,`algorithm`,sub_type ,COUNT(DISTINCT location) FROM t_status s
+ RIGHT OUTER JOIN  tt_borders b
+ON s.serial_number = b.serialNumber
+ WHERE s.repair_status='Repaired' AND b.testTime <![CDATA[>=]]> #{0} AND b.testTime <![CDATA[<=]]> #{1} AND b.testerName= #{2}  GROUP BY s.location ORDER BY s.serial_number;
+
+   
+   </select>
+   
+   <select id="findBySnAndTime" resultMap="BaseResultMap">
+     
+SELECT b.boardType,b.testerName,b.testTime,s.serial_number,location,pin,err_code,repair_status,`algorithm`,sub_type, COUNT(DISTINCT location) FROM t_status s 
+ RIGHT OUTER JOIN  tt_borders b
+ ON s.serial_number = b.serialNumber
+WHERE repair_status='Repaired' AND b.testTime <![CDATA[>=]]> #{0} AND b.testTime <![CDATA[<=]]> #{1} AND s.serial_number=#{2} GROUP BY s.location ORDER BY s.serial_number;
+   </select>
+   
+   
+   <resultMap id="BaseResultMap" type="cn.itcast.domain.BoardData">
+     <result column="boardType" property="boardType"/>
+     <result column="testerName" property="testerName"/>
+     <result column="testTime" property="testTime"/>
+     <result column="serial_number" property="serialNumber"/>
+     <result column="location" property="location"/>
+     <result column="pin" property="pin"/>
+     <result column="err_code" property="errorCode"/>
+     <result column="repair_status" property="repairStatus"/>
+     <result column="algorithm" property="algorithm"/>
+     <result column="sub_type" property="subtype"/>
+   
+   </resultMap>
+   
+   
+
+</mapper>
